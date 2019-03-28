@@ -521,7 +521,7 @@ void rtw_process_vht_op_mode_notify(_adapter *padapter, u8 *pframe, PVOID sta)
 
 	current_rxss = rtw_vht_mcsmap_to_nss(psta->vhtpriv.vht_mcs_map);
 	if (target_rxss != current_rxss) {
-		u8	vht_mcs_map[2] = {};
+		u8	vht_mcs_map[2] = {0};
 
 		update_ra = _TRUE;
 

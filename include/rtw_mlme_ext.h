@@ -278,8 +278,8 @@ struct ch_list_t {
 	u8 *len_ch;
 };
 
-#define CH_LIST_ENT(_len, arg...) \
-	{.len_ch = (u8[_len + 1]) {_len, ##arg}, }
+#define CH_LIST_ENT(_len, ...) \
+	{.len_ch = (u8[_len + 1]) {_len, __VA_ARGS__}, }
 
 #define CH_LIST_LEN(_ch_list) (_ch_list.len_ch[0])
 #define CH_LIST_CH(_ch_list, _i) (_ch_list.len_ch[_i + 1])

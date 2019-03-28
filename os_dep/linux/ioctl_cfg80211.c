@@ -923,7 +923,7 @@ void rtw_cfg80211_indicate_connect(_adapter *padapter)
 	struct cfg80211_bss *bss = NULL;
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 12, 0)
-	struct cfg80211_roam_info roam_info ={};
+	struct cfg80211_roam_info roam_info ={0};
 #endif
 
 	RTW_INFO(FUNC_ADPT_FMT"\n", FUNC_ADPT_ARG(padapter));
@@ -4408,7 +4408,7 @@ static int rtw_add_beacon(_adapter *adapter, const u8 *head, size_t head_len, co
 	/*	pstapriv->max_num_sta = NUM_STA; */
 
 
-	_rtw_memcpy(pbuf, (void *)head + 24, head_len - 24); /* 24=beacon header len. */
+	_rtw_memcpy(pbuf, (char *)head + 24, head_len - 24); /* 24=beacon header len. */
 	_rtw_memcpy(pbuf + head_len - 24, (void *)tail, tail_len);
 
 	len = head_len + tail_len - 24;

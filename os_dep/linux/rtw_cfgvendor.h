@@ -515,7 +515,7 @@ typedef struct {
    wifi_rssi rssi_ack;                   // access Point ACK RSSI (averaged) from connected AP
    wifi_wmm_ac_stat ac[WIFI_AC_MAX];     // per ac data packet statistics
    u32 num_peers;                        // number of peers
-   wifi_peer_info peer_info[];           // per peer statistics
+   wifi_peer_info* peer_info;           // per peer statistics
 } wifi_iface_stat;
 
 /* configuration params */

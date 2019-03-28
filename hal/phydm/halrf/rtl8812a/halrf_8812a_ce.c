@@ -672,8 +672,8 @@ void _iqk_tx_8812a(
 {
 	u8		delay_count, cal = 0;
 	u8		cal0_retry, cal1_retry, tx0_average = 0, tx1_average = 0, rx0_average = 0, rx1_average = 0;
-	int			TX_IQC_temp[10][4], TX_IQC[4] = {};		/* TX_IQC = [TX0_X, TX0_Y,TX1_X,TX1_Y]; for 3 times */
-	int			RX_IQC_temp[10][4], RX_IQC[4] = {};		/* RX_IQC = [RX0_X, RX0_Y,RX1_X,RX1_Y]; for 3 times */
+	int			TX_IQC_temp[10][4], TX_IQC[4] = {0};		/* TX_IQC = [TX0_X, TX0_Y,TX1_X,TX1_Y]; for 3 times */
+	int			RX_IQC_temp[10][4], RX_IQC[4] = {0};		/* RX_IQC = [RX0_X, RX0_Y,RX1_X,RX1_Y]; for 3 times */
 	boolean	TX0_fail = true, RX0_fail = true, IQK0_ready = false, TX0_finish = false, RX0_finish = false;
 	boolean	TX1_fail = true, RX1_fail = true, IQK1_ready = false, TX1_finish = false, RX1_finish = false, VDF_enable = false;
 	int			i, ii, dx = 0, dy = 0;

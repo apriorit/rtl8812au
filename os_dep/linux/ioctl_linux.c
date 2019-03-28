@@ -12369,6 +12369,8 @@ static const struct iw_priv_args rtw_mp_private_args[] = {
 #endif
 
 #endif /* CONFIG_MP_INCLUDED */
+
+	{0}
 };
 
 static iw_handler rtw_private_handler[] = {

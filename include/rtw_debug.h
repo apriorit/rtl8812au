@@ -79,16 +79,16 @@ extern void rtl871x_cedbg(const char *fmt, ...);
 
 #if defined(PLATFORM_WINDOWS) && defined(PLATFORM_OS_XP)
 	#define _dbgdump DbgPrint
-	#define _seqdump(sel, fmt, arg...) _dbgdump(fmt, ##arg)
+	#define _seqdump(sel, fmt, ...) _dbgdump(fmt, __VA_ARGS__)
 #elif defined(PLATFORM_WINDOWS) && defined(PLATFORM_OS_CE)
 	#define _dbgdump rtl871x_cedbg
-	#define _seqdump(sel, fmt, arg...) _dbgdump(fmt, ##arg)
+	#define _seqdump(sel, fmt, ...) _dbgdump(fmt, __VA_ARGS__)
 #elif defined PLATFORM_LINUX
 	#define _dbgdump printk
 	#define _seqdump seq_printf
 #elif defined PLATFORM_FREEBSD
 	#define _dbgdump printf
-	#define _seqdump(sel, fmt, arg...) _dbgdump(fmt, ##arg)
+	#define _seqdump(sel, fmt, ...) _dbgdump(fmt, __VA_ARGS__)
 #endif
 
 #ifdef CONFIG_RTW_DEBUG
@@ -101,44 +101,44 @@ extern uint rtw_drv_log_level;
 
 /* with driver-defined prefix */
 #undef RTW_PRINT
-#define RTW_PRINT(fmt, arg...)     \
+#define RTW_PRINT(fmt, ...)     \
 	do {\
 		if (_DRV_ALWAYS_ <= rtw_drv_log_level) {\
-			_dbgdump(DRIVER_PREFIX fmt, ##arg);\
+			_dbgdump(DRIVER_PREFIX fmt, __VA_ARGS__);\
 		} \
 	} while (0)
 
 #undef RTW_ERR
-#define RTW_ERR(fmt, arg...)     \
+#define RTW_ERR(fmt, ...)     \
 	do {\
 		if (_DRV_ERR_ <= rtw_drv_log_level) {\
-			_dbgdump(DRIVER_PREFIX"ERROR " fmt, ##arg);\
+			_dbgdump(DRIVER_PREFIX"ERROR " fmt, __VA_ARGS__);\
 		} \
 	} while (0)
 
 
 #undef RTW_WARN
-#define RTW_WARN(fmt, arg...)     \
+#define RTW_WARN(fmt, ...)     \
 	do {\
 		if (_DRV_WARNING_ <= rtw_drv_log_level) {\
-			_dbgdump(DRIVER_PREFIX"WARN " fmt, ##arg);\
+			_dbgdump(DRIVER_PREFIX"WARN " fmt, __VA_ARGS__);\
 		} \
 	} while (0)
 
 #undef RTW_INFO
-#define RTW_INFO(fmt, arg...)     \
+#define RTW_INFO(fmt, ...)     \
 	do {\
 		if (_DRV_INFO_ <= rtw_drv_log_level) {\
-			_dbgdump(DRIVER_PREFIX fmt, ##arg);\
+			_dbgdump(DRIVER_PREFIX fmt, __VA_ARGS__);\
 		} \
 	} while (0)
 
 
 #undef RTW_DBG
-#define RTW_DBG(fmt, arg...)     \
+#define RTW_DBG(fmt, ...)     \
 	do {\
 		if (_DRV_DEBUG_ <= rtw_drv_log_level) {\
-			_dbgdump(DRIVER_PREFIX fmt, ##arg);\
+			_dbgdump(DRIVER_PREFIX fmt, __VA_ARGS__);\
 		} \
 	} while (0)
 
@@ -197,43 +197,43 @@ extern uint rtw_drv_log_level;
 
 /* without driver-defined prefix */
 #undef _RTW_PRINT
-#define _RTW_PRINT(fmt, arg...)     \
+#define _RTW_PRINT(fmt, ...)     \
 	do {\
 		if (_DRV_ALWAYS_ <= rtw_drv_log_level) {\
-			_dbgdump(fmt, ##arg);\
+			_dbgdump(fmt, __VA_ARGS__);\
 		} \
 	} while (0)
 
 #undef _RTW_ERR
-#define _RTW_ERR(fmt, arg...)     \
+#define _RTW_ERR(fmt, ...)     \
 	do {\
 		if (_DRV_ERR_ <= rtw_drv_log_level) {\
-			_dbgdump(fmt, ##arg);\
+			_dbgdump(fmt, __VA_ARGS__);\
 		} \
 	} while (0)
 
 
 #undef _RTW_WARN
-#define _RTW_WARN(fmt, arg...)     \
+#define _RTW_WARN(fmt, ...)     \
 	do {\
 		if (_DRV_WARNING_ <= rtw_drv_log_level) {\
-			_dbgdump(fmt, ##arg);\
+			_dbgdump(fmt, __VA_ARGS__);\
 		} \
 	} while (0)
 
 #undef _RTW_INFO
-#define _RTW_INFO(fmt, arg...)     \
+#define _RTW_INFO(fmt, ...)     \
 	do {\
 		if (_DRV_INFO_ <= rtw_drv_log_level) {\
-			_dbgdump(fmt, ##arg);\
+			_dbgdump(fmt, __VA_ARGS__);\
 		} \
 	} while (0)
 
 #undef _RTW_DBG
-#define _RTW_DBG(fmt, arg...)     \
+#define _RTW_DBG(fmt, ...)     \
 	do {\
 		if (_DRV_DEBUG_ <= rtw_drv_log_level) {\
-			_dbgdump(fmt, ##arg);\
+			_dbgdump(fmt, __VA_ARGS__);\
 		} \
 	} while (0)
 
@@ -277,23 +277,23 @@ extern uint rtw_drv_log_level;
 #if defined(_seqdump)
 /* dump message to selected 'stream' with driver-defined prefix */
 #undef RTW_PRINT_SEL
-#define RTW_PRINT_SEL(sel, fmt, arg...) \
+#define RTW_PRINT_SEL(sel, fmt, ...) \
 	do {\
 		if (sel == RTW_DBGDUMP)\
-			RTW_PRINT(fmt, ##arg); \
+			RTW_PRINT(fmt, __VA_ARGS__); \
 		else {\
-			_seqdump(sel, fmt, ##arg) /*rtw_warn_on(1)*/; \
+			_seqdump(sel, fmt, __VA_ARGS__) /*rtw_warn_on(1)*/; \
 		} \
 	} while (0)
 
 /* dump message to selected 'stream' */
 #undef _RTW_PRINT_SEL
-#define _RTW_PRINT_SEL(sel, fmt, arg...) \
+#define _RTW_PRINT_SEL(sel, fmt, ...) \
 	do {\
 		if (sel == RTW_DBGDUMP)\
-			_RTW_PRINT(fmt, ##arg); \
+			_RTW_PRINT(fmt, __VA_ARGS__); \
 		else {\
-			_seqdump(sel, fmt, ##arg) /*rtw_warn_on(1)*/; \
+			_seqdump(sel, fmt, __VA_ARGS__) /*rtw_warn_on(1)*/; \
 		} \
 	} while (0)
 

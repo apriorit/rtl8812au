@@ -1450,6 +1450,7 @@ static const struct  nl80211_vendor_cmd_info rtw_vendor_events[] = {
 	{ OUI_GOOGLE, GSCAN_EVENT_COMPLETE_SCAN },
 	{ OUI_GOOGLE, GSCAN_EVENT_HOTLIST_RESULTS_LOST }
 #endif /* GSCAN_SUPPORT */
+{0}
 };
 
 int rtw_cfgvendor_attach(struct wiphy *wiphy)

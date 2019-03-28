@@ -99,21 +99,21 @@
 	#define RT_PRINTK				dbg_print
 	#define PHYDM_PRINT2BUF				RT_SPRINTF
 #elif (DM_ODM_SUPPORT_TYPE == ODM_CE) && defined(DM_ODM_CE_MAC80211)
-	#define dbg_print(args...)
-	#define RT_PRINTK(fmt, args...)	\
+	#define dbg_print(...)
+	#define RT_PRINTK(fmt, ...)	\
 			RT_TRACE(((struct rtl_priv *)p_dm->adapter),	\
-				 COMP_PHYDM, DBG_DMESG, fmt, ## args)
+				 COMP_PHYDM, DBG_DMESG, fmt, __VA_ARGS__)
 	#define	RT_DISP(dbgtype, dbgflag, printstr)
 	#define PHYDM_PRINT2BUF				snprintf
 #elif (DM_ODM_SUPPORT_TYPE == ODM_CE)
 	#define dbg_print	printk
-	#define RT_PRINTK(fmt, args...)	dbg_print(fmt, ## args)
+	#define RT_PRINTK(fmt, ...)	dbg_print(fmt, __VA_ARGS__)
 	#define	RT_DISP(dbgtype, dbgflag, printstr)
 	#define PHYDM_PRINT2BUF				snprintf
 #else
 	#define dbg_print	panic_printk
-	/*#define RT_PRINTK(fmt, args...)	dbg_print("%s(): " fmt, __FUNCTION__, ## args);*/
-	#define RT_PRINTK(args...)	dbg_print(args)
+	/*#define RT_PRINTK(fmt, ...)	dbg_print("%s(): " fmt, __FUNCTION__, __VA_ARGS__);*/
+	#define RT_PRINTK(...)	dbg_print(args)
 	#define PHYDM_PRINT2BUF				snprintf
 #endif
 

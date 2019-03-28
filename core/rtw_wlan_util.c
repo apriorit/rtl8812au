@@ -697,7 +697,7 @@ int get_bsstype(unsigned short capability)
 		return 0;
 }
 
-__inline u8 *get_my_bssid(WLAN_BSSID_EX *pnetwork)
+u8 *get_my_bssid(WLAN_BSSID_EX *pnetwork)
 {
 	return pnetwork->MacAddress;
 }

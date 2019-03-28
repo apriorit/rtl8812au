@@ -1275,8 +1275,8 @@ unsigned int rtw_classify8021d(struct sk_buff *skb)
 	if (skb->priority >= 256 && skb->priority <= 263)
 		return skb->priority - 256;
 
-	switch (skb->protocol) {
-	case htons(ETH_P_IP):
+	switch (ntohs(skb->protocol)) {
+	case (ETH_P_IP):
 		dscp = ip_hdr(skb)->tos & 0xfc;
 		break;
 	default:
@@ -1321,8 +1321,8 @@ u16 rtw_recv_select_queue(struct sk_buff *skb)
 
 	_rtw_memcpy(&eth_type, pdata + (ETH_ALEN << 1), 2);
 
-	switch (eth_type) {
-	case htons(ETH_P_IP):
+	switch (ntohs(eth_type)) {
+	case (ETH_P_IP):
 
 		piphdr = (struct iphdr *)(pdata + ETH_HLEN);
 

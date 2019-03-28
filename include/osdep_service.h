@@ -706,14 +706,14 @@ struct map_t {
 	struct map_seg_t *segs;
 };
 
-#define MAPSEG_ARRAY_ENT(_sa, _len, _c, arg...) \
-	{ .sa = _sa, .len = _len, .c = (u8[_len]){ _c, ##arg}, }
+#define MAPSEG_ARRAY_ENT(_sa, _len, _c, ...) \
+	{ .sa = _sa, .len = _len, .c = (u8[_len]){ _c, __VA_ARGS__}, }
 
 #define MAPSEG_PTR_ENT(_sa, _len, _p) \
 	{ .sa = _sa, .len = _len, .c = _p, }
 
-#define MAP_ENT(_len, _seg_num, _init_v, _seg, arg...) \
-	{ .len = _len, .seg_num = _seg_num, .init_value = _init_v, .segs = (struct map_seg_t[_seg_num]){ _seg, ##arg}, }
+#define MAP_ENT(_len, _seg_num, _init_v, _seg, ...) \
+	{ .len = _len, .seg_num = _seg_num, .init_value = _init_v, .segs = (struct map_seg_t[_seg_num]){ _seg, __VA_ARGS__}, }
 
 int map_readN(const struct map_t *map, u16 offset, u16 len, u8 *buf);
 u8 map_read8(const struct map_t *map, u16 offset);
@@ -732,7 +732,7 @@ char alpha_to_upper(char c);
  * Write formatted output to sized buffer
  */
 #ifdef PLATFORM_LINUX
-#define rtw_sprintf(buf, size, format, arg...)	snprintf(buf, size, format, ##arg)
+#define rtw_sprintf(buf, size, format, ...)	snprintf(buf, size, format, __VA_ARGS__)
 #else /* !PLATFORM_LINUX */
 #error "NOT DEFINE \"rtw_sprintf\"!!"
 #endif /* !PLATFORM_LINUX */

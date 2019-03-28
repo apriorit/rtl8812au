@@ -453,11 +453,11 @@ adc_smp_query(
 	dbg_print("%s adc_smp_state %d", __func__, adc_smp->adc_smp_state);
 
 	for (i = 0; i < (adc_smp_buf->length >> 2) - 2; i += 2) {
-		PHYDM_SNPRINTF((output + used, out_len - used,
+		PHYDM_SNPRINTF(((char *)output + used, out_len - used,
 			"%08x%08x\n", adc_smp_buf->octet[i], adc_smp_buf->octet[i + 1]));
 	}
 
-	PHYDM_SNPRINTF((output + used, out_len - used, "\n"));
+	PHYDM_SNPRINTF(((char *)output + used, out_len - used, "\n"));
 	/* PHYDM_SNPRINTF((output+used, out_len-used, "\n[%lu.%06lu]\n", t.tv_sec, t.tv_nsec)); */
 	*pused = used;
 }
@@ -489,13 +489,13 @@ adc_smp_query_single_data(
 
 	/* dbg_print("%s adc_smp_state %d\n", __func__, adc_smp->adc_smp_state); */
 	if (adc_smp->adc_smp_state != ADCSMP_STATE_QUERY) {
-		PHYDM_SNPRINTF((output + used, out_len - used,
+		PHYDM_SNPRINTF(((char *)output + used, out_len - used,
 				"Error: la data is not ready yet ...\n"));
 		return -1;
 	}
 
 	if (index < ((adc_smp_buf->length >> 2) - 2)) {
-		PHYDM_SNPRINTF((output + used, out_len - used, "%08x%08x\n",
+		PHYDM_SNPRINTF(((char *)output + used, out_len - used, "%08x%08x\n",
 			adc_smp_buf->octet[index], adc_smp_buf->octet[index + 1]));
 	}
 	return 0;
