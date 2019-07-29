@@ -167,8 +167,8 @@ typedef	spinlock_t	_lock;
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0))
 typedef struct legacy_timer_emu {
   struct timer_list t;
-  void (*function)(unsigned long);
-  unsigned long data;
+  void (*function)(uintptr_t);
+  uintptr_t data;
 } _timer;
 #else
 typedef struct timer_list _timer;
@@ -316,7 +316,7 @@ __inline static void _init_timer(_timer *ptimer, _nic_hdl nic_hdl, void *pfunc, 
 {
 	/* setup_timer(ptimer, pfunc,(u32)cntx);	 */
 	ptimer->function = pfunc;
-	ptimer->data = (unsigned long)cntx;
+	ptimer->data = (uintptr_t)cntx;
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0))
   timer_setup(&ptimer->t, legacy_timer_emu_func, 0);
 #else

@@ -121,13 +121,13 @@ static __inline__ int __nat25_add_pppoe_tag(struct sk_buff *skb, struct pppoe_ta
 static int skb_pull_and_merge(struct sk_buff *skb, unsigned char *src, int len)
 {
 	int tail_len;
-	unsigned long end, tail;
+	uintptr_t end, tail;
 
 	if ((src + len) > skb_tail_pointer(skb) || skb->len < len)
 		return -1;
 
-	tail = (unsigned long)skb_tail_pointer(skb);
-	end = (unsigned long)src + len;
+	tail = (uintptr_t)skb_tail_pointer(skb);
+	end = (uintptr_t)src + len;
 	if (tail < end)
 		return -1;
 

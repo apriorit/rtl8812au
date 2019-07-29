@@ -25,8 +25,8 @@ int	usb_init_recv_priv(_adapter *padapter, u16 ini_in_buf_sz)
 
 #ifdef PLATFORM_LINUX
 	tasklet_init(&precvpriv->recv_tasklet,
-		     (void(*)(unsigned long))usb_recv_tasklet,
-		     (unsigned long)padapter);
+		     (void(*)(uintptr_t))usb_recv_tasklet,
+		     (uintptr_t)padapter);
 #endif /* PLATFORM_LINUX */
 
 #ifdef PLATFORM_FREEBSD
