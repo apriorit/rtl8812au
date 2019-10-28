@@ -246,10 +246,10 @@ odm_inband_noise_monitor_ac_series(
 	u8		valid_cnt = 0;
 	u64	start = 0, func_start = 0, func_end = 0;
 
-	if (p_dm->support_ic_type & (ODM_RTL8822B | ODM_RTL8821C))
+	if (p_dm->support_ic_type & (ODM_RTL8822B | ODM_RTL8821C | ODM_RTL8814A))
 		return phydm_idle_noise_measurement_ac(p_dm, is_pause_dig, igi_value, max_time);
 
-	if (!(p_dm->support_ic_type & (ODM_RTL8812 | ODM_RTL8821 | ODM_RTL8814A)))
+	if (!(p_dm->support_ic_type & (ODM_RTL8812 | ODM_RTL8821)))
 		return 0;
 
 	func_start = odm_get_current_time(p_dm);
